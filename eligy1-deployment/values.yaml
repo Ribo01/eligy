@@ -1,0 +1,22 @@
+
+replicaCount: 1
+
+image:
+  repository: 08036044312/eligy_test
+  tag: latest
+  pullPolicy: IfNotPresent
+
+service:
+  type: LoadBalancer
+  port: 80
+  name: eligy
+  targetport: 80
+
+containers:
+  name: eligy-test  
+
+
+# selectorLabels:
+#   app: eligy
+
+

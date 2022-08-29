@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "eligy1-deployment.fullname" . }}
+  labels:
+    {{ include "eligy1-deployment.labels" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+      matchLabels:
+         app : {{  include "eligy1-deployment.name" . }}
+  template:
+    metadata:
+      labels:
+        name: {{ include "eligy1-deployment.fullname" . }}
+        app: {{ include "eligy1-deployment.name" .  }}
+    spec:
+      containers:
+      - name: {{ .Values.containers.name }}
+        image: {{ .Values.image.repository }}
+        imagePullPolicy: {{ .Values.image.pullPolicy }}
+        ports:
+        - containerPort: {{ .Values.service.targetport }}
+        resources:
+          requests:
+            cpu: 100m
+          limits:
+            cpu: 100m
+          requests:
+            memory: 128Mi
+          limits:
+            memory: 128Mi  
